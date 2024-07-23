@@ -1,4 +1,8 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_provider/provider/favourite_provider.dart';
+import 'package:provider/provider.dart';
 class FavouriteScreen extends StatefulWidget {
   const FavouriteScreen({super.key});
 
@@ -9,8 +13,9 @@ class FavouriteScreen extends StatefulWidget {
 class _FavouriteScreenState extends State<FavouriteScreen> {
   @override
   Widget build(BuildContext context) {
+
+    final provider = Provider.of<FavouriteProvider>(context,listen: false);
     print("build");
-    List<int> selectedItem = [];
     return  Scaffold(
       appBar: AppBar(
         title: Text('Favourite App'),
@@ -24,19 +29,19 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             child: ListView.builder(
                 itemCount: 20,
                 itemBuilder: (context,index){
-                  return ListTile(
-                    onTap: (){
-                     selectedItem.add(index);
-                     setState(() {
+                  return Consumer<FavouriteProvider>(builder: (context,values, child){
+                   return ListTile(
+                      onTap: (){
+                        values.addItem(index);
+                      },
+                      title: Text("Item "+index.toString()),
+                      trailing:
 
-                     });
-                     print(selectedItem);
-                    },
-                    title: Text("Item "+index.toString()),
-                    trailing:    Icon(selectedItem.contains(index) ? Icons.facebook : Icons.favorite_outline)
-                  ,
-                  );
-            
+                      Icon(values.selectedItem.contains(index) ? Icons.favorite : Icons.favorite_outline)
+                      ,
+                    );
+
+                  });
             }),
           )
         ],
