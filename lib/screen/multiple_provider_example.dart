@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/multiple_provider.dart';
 
 class MultipleProviderExample extends StatefulWidget {
   const MultipleProviderExample({super.key});
@@ -9,10 +12,12 @@ class MultipleProviderExample extends StatefulWidget {
 }
 
 class _MultipleProviderExampleState extends State<MultipleProviderExample> {
-  double value = 1.0;
 
   @override
   Widget build(BuildContext context) {
+    print("build");
+    final provider = Provider.of<MultipleProvider>(context,listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Suscribe'),
@@ -23,40 +28,43 @@ class _MultipleProviderExampleState extends State<MultipleProviderExample> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Slider(
-              min: 0,
-              max: 1,
-              value: value,
-              onChanged: (changeValue) {
-                setState(() {
-                  value = changeValue;
+          Consumer<MultipleProvider>(builder: (context,values,child){
+            return Slider(
+                min: 0,
+                max: 1,
+                value: values.value,
+                onChanged: (changeValue) {
+                  provider.setValue(changeValue);
                 });
-              }),
-          Row(
+          }),
+          Consumer<MultipleProvider>(builder: (context,values, child){
+            return   Row(
 
-            children: [
-              Expanded(
-                child: Container(
-                  height: 100,
-                  decoration:
-                      BoxDecoration(color: Colors.red.withOpacity(value)),
-                  child: const Center(
-                    child: Text("Container 1"),
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 100,
+                    decoration:
+                    BoxDecoration(color: Colors.red.withOpacity(values.value)),
+                    child: const Center(
+                      child: Text("Container 1"),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 100,
-                  decoration:
-                      BoxDecoration(color: Colors.green.withOpacity(value)),
-                  child: Center(
-                    child: Text("Container 2"),
+                Expanded(
+                  child: Container(
+                    height: 100,
+                    decoration:
+                    BoxDecoration(color: Colors.green.withOpacity(values.value)),
+                    child: Center(
+                      child: Text("Container 2"),
+                    ),
                   ),
-                ),
-              )
-            ],
-          )
+                )
+              ],
+            );
+          })
+
         ],
       ),
     );
