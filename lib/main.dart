@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_provider/provider/count_provider.dart';
 import 'package:flutter_provider/provider/multiple_provider.dart';
 import 'package:flutter_provider/screen/count_example.dart';
+import 'package:flutter_provider/screen/favourite/favourite_screen.dart';
 import 'package:flutter_provider/screen/multiple_provider_example.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: MultipleProviderExample(),
+        home: const FavouriteScreen(),
       ),
     );
   }
