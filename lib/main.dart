@@ -7,6 +7,7 @@ import 'package:flutter_provider/screen/count_example.dart';
 import 'package:flutter_provider/screen/dark_theme_screen.dart';
 import 'package:flutter_provider/screen/favourite/favourite_screen.dart';
 import 'package:flutter_provider/screen/multiple_provider_example.dart';
+import 'package:flutter_provider/screen/value_notify_listener.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
                   backgroundColor: Colors.teal
                 )
               ),
-              home: const DarkThemeScreen(),
+              home: const ValueNotifyListener(),
             );
           },
         ));
